@@ -6,7 +6,6 @@
 
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
-const DotenvPlugin = require("dotenv-webpack");
 
 const SERVER_PATH = path.join(__dirname, "/server/server.js");
 
@@ -36,5 +35,4 @@ module.exports = {
 	resolve: {
 		extensions: [".js"],
 	},
-	plugins: [new DotenvPlugin()],
 };
