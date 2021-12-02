@@ -1,9 +1,9 @@
 /** @format */
 
-const path = require("path");
-const express = require("express");
-// const api = require("./api");
-const fs = require("fs");
+import path from "path";
+import express from "express";
+import api from "./api";
+import fs from "fs";
 
 const PORT = 3000;
 const DIST_DIR = path.join(__dirname);
@@ -11,7 +11,7 @@ const DIST_DIR = path.join(__dirname);
 const app = express();
 
 app.use(express.json());
-// app.use("/api", api);
+app.use("/api", api);
 
 app.get(/.(jpg|png|js|css)$/, (req, res) => {
 	sanitizeUrl(req);

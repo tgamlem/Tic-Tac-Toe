@@ -1,7 +1,10 @@
+/** @format */
+
 import React from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import Home from "./pages/home";
+import Games from "./pages/games";
 
 const customHistory = createBrowserHistory();
 
@@ -10,6 +13,7 @@ const App = () => {
 		<div className='app'>
 			<Router history={customHistory}>
 				<Switch>
+					<Route path={"/games"} component={Games} />
 					<Route path={"/"}>
 						<Home />
 					</Route>
