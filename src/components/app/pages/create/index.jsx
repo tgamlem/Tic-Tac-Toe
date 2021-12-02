@@ -6,13 +6,13 @@ import Page from "../page";
 
 import { Link } from "react-router-dom";
 
-const Games = () => {
+const Create = () => {
 	return (
 		<Page>
 			<Link to='/home'>Home</Link>
-			<div>Show list of games</div>
+			<div>Create a new game</div>
 		</Page>
 	);
 };
 
-export default Games;
+export default Create;

@@ -11,8 +11,17 @@ import styles from "./styles.scss";
 const Home = () => {
 	return (
 		<Page>
-			<div className={styles.hello}>Hello World!</div>
-			<Link to='/games'>Games</Link>
+			<div className={styles.title}>Welcome to 2-Player Tic-Tac-Toe!</div>
+			<Link className={styles.joinButton} to='/games'>
+				Games
+			</Link>
+			<Link className={styles.createButton} to='/create'>
+				Create
+			</Link>
+			<div className={styles.joinText}>Join a Game!</div>
+			<button className={styles.joinButton}>Join</button>
+			<div className={styles.createText}>Create a Game!</div>
+			<button className={styles.createButton}>Create</button>
 		</Page>
 	);
 };
