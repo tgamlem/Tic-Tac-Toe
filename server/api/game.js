@@ -41,6 +41,13 @@ gameAPI.get("/:id/gameWon", (req, res) => {
 	res.status(204).send();
 });
 
+gameAPI.get("/:id/gameTie", (req, res) => {
+	var game = getGameById(req.params.id);
+	if (game === null) res.status(404).send("Game not found");
+	if (game.checkTie()) res.send("Tie!");
+	res.status(204).send();
+});
+
 gameAPI.get("/:id", (req, res) => {
 	var game = getGameById(req.params.id); // find the game by id
 	// if the game exists, return it
@@ -135,6 +142,19 @@ class Game {
 		}
 
 		return false;
+	}
+
+	checkTie() {
+		// if someone won, not a tie
+		if (this.checkWin === true) return false;
+		for (var i = 0; i < 3; i++) {
+			for (var j = 0; j < 3; j++) {
+				// if any space is empty
+				if (this.rows[i][j] !== "") return false;
+			}
+		}
+		// otherwise, nobody won and no empty spaces, so a tie
+		return true;
 	}
 
 	arraysMatch(arr1, arr2) {
