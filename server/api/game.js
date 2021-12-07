@@ -146,11 +146,15 @@ class Game {
 
 	checkTie() {
 		// if someone won, not a tie
-		if (this.checkWin === true) return false;
+		if (this.checkWin === true) {
+			return false;
+		}
 		for (var i = 0; i < 3; i++) {
 			for (var j = 0; j < 3; j++) {
 				// if any space is empty
-				if (this.rows[i][j] !== "") return false;
+				if (this.rows[i][j] === "") {
+					return false;
+				}
 			}
 		}
 		// otherwise, nobody won and no empty spaces, so a tie
@@ -161,12 +165,12 @@ class Game {
 		// Check if the arrays are the same length
 		if (arr1.length !== arr2.length) return false;
 
-		// Check if all items exist and are in the same order
+		// Check if all items exist in the same order
 		for (var i = 0; i < arr1.length; i++) {
 			if (arr1[i] !== arr2[i]) return false;
 		}
 
-		// Otherwise, return true
+		// Otherwise, the arrays are the same
 		return true;
 	}
 }
