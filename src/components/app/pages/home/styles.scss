@@ -46,3 +46,10 @@ $default-font: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 	float: right;
 	@extend .tab;
 }
+
+.playButton {
+	padding: 20px, 30px;
+	font-size: larger;
+	float: center;
+	@extend .tab;
+}

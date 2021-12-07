@@ -18,6 +18,9 @@ const Home = () => {
 			<Link className={styles.createButton} to='/create'>
 				Create
 			</Link>
+			<Link className={styles.playButton} to='/Play'>
+				Play
+			</Link>
 			<div className={styles.joinText}>Join a Game!</div>
 			<button className={styles.joinButton}>Join</button>
 			<div className={styles.createText}>Create a Game!</div>
