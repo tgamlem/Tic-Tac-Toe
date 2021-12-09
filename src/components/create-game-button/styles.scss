@@ -1,0 +1,10 @@
+/** @format */
+
+@use "../../styles/variables" as variables;
+
+.createButton {
+	padding: 20px, 30px;
+	font-size: larger;
+	float: right;
+	@include variables.tab;
+}

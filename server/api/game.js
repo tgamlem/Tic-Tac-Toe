@@ -9,12 +9,29 @@ let games = [];
 gameAPI.post("/new", (req, res) => {
 	var id = uuidv1(); // make a game id
 	games.push(new Game(id)); // make the new game
-	res.status(201).send(`${id}`); // return the id
+	res.status(201).json(id); // return the id
+});
+
+gameAPI.get("/listavailablebyid", (req, res) => {
+	var ids = games.filter((x) => x.getPlayers() !== 2).map((x) => x.id);
+	res.json(ids);
+});
+
+gameAPI.put("/:id/join", (req, res) => {
+	var game = getGameById(req.params.id);
+	if (game === null) res.status(404).send("Game not found");
+	else if (game.players === 1) {
+		game.addPlayer();
+		res.send("Player added");
+	} else {
+		res.status(400).send("game is full");
+	}
 });
 
 gameAPI.put("/:id/player1move", (req, res) => {
 	var game = getGameById(req.params.id); // get the game that is being played
-	if (game.setValue(req.body.row, req.body.position, "X")) {
+	if (game === null) res.status(404).send("Game not found");
+	else if (game.setValue(req.body.row, req.body.position, "X")) {
 		// if the space is empty, place move and return game
 		res.status(200).send(game);
 	} else {
@@ -25,7 +42,8 @@ gameAPI.put("/:id/player1move", (req, res) => {
 
 gameAPI.put("/:id/player2move", (req, res) => {
 	var game = getGameById(req.params.id); // get the game that is being played
-	if (game.setValue(req.body.row, req.body.position, "O")) {
+	if (game === null) res.status(404).send("Game not found");
+	else if (game.setValue(req.body.row, req.body.position, "O")) {
 		// if the space is empty, place move and return game
 		res.status(200).send(game);
 	} else {
@@ -34,18 +52,18 @@ gameAPI.put("/:id/player2move", (req, res) => {
 	}
 });
 
-gameAPI.get("/:id/gameWon", (req, res) => {
+gameAPI.get("/:id/gamewon", (req, res) => {
 	var game = getGameById(req.params.id);
 	if (game === null) res.status(404).send("Game not found");
-	if (game.checkWin()) res.send("Game Won!");
-	res.status(204).send();
+	else if (game.checkWin()) res.send("Game Won!");
+	else res.status(204).send();
 });
 
-gameAPI.get("/:id/gameTie", (req, res) => {
+gameAPI.get("/:id/gametie", (req, res) => {
 	var game = getGameById(req.params.id);
 	if (game === null) res.status(404).send("Game not found");
-	if (game.checkTie()) res.send("Tie!");
-	res.status(204).send();
+	else if (game.checkTie()) res.send("Tie!");
+	else res.status(204).send();
 });
 
 gameAPI.get("/:id", (req, res) => {
@@ -77,6 +95,7 @@ class Game {
 			["", "", ""],
 			["", "", ""],
 		]; // spaces on the game board
+		this.players = 1;
 	}
 
 	setValue(row, position, value) {
@@ -159,6 +178,14 @@ class Game {
 		}
 		// otherwise, nobody won and no empty spaces, so a tie
 		return true;
+	}
+
+	getPlayers() {
+		return this.players;
+	}
+
+	addPlayer() {
+		this.players = 2;
 	}
 
 	arraysMatch(arr1, arr2) {

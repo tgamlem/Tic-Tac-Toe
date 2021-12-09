@@ -5,7 +5,6 @@ import { Router, Switch, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import Home from "./pages/home";
 import Games from "./pages/games";
-import Create from "./pages/create";
 import Play from "./pages/play";
 
 const customHistory = createBrowserHistory();
@@ -16,8 +15,7 @@ const App = () => {
 			<Router history={customHistory}>
 				<Switch>
 					<Route path={"/games"} component={Games} />
-					<Route path={"/create"} component={Create} />
-					<Route path={"/play"} component={Play} />
+					<Route path={"/:id/:playerid/play"} component={Play} />
 					<Route path={"/"}>
 						<Home />
 					</Route>

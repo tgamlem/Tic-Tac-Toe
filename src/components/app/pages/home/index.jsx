@@ -6,6 +6,8 @@ import Page from "../page";
 
 import { Link } from "react-router-dom";
 
+import CreateGameButton from "../../../create-game-button";
+
 import styles from "./styles.scss";
 
 const Home = () => {
@@ -15,16 +17,9 @@ const Home = () => {
 			<Link className={styles.joinButton} to='/games'>
 				Games
 			</Link>
-			<Link className={styles.createButton} to='/create'>
-				Create
-			</Link>
-			<Link className={styles.playButton} to='/Play'>
-				Play
-			</Link>
+			<CreateGameButton />
 			<div className={styles.joinText}>Join a Game!</div>
-			<button className={styles.joinButton}>Join</button>
 			<div className={styles.createText}>Create a Game!</div>
-			<button className={styles.createButton}>Create</button>
 		</Page>
 	);
 };

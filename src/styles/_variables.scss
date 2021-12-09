@@ -1,0 +1,12 @@
+/** @format */
+
+$default-font: "Gill Sans", "Gill Sans MT", calibri, "Trebuchet MS", sans-serif;
+
+@mixin tab {
+	padding: 10px, 20px;
+	border-radius: 3px;
+	background: rgb(118, 193, 255);
+	font-family: $default-font;
+	font-size: medium;
+	color: black;
+}
