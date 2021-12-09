@@ -6,28 +6,32 @@ const gameAPI = express.Router();
 
 let games = [];
 
+// create a new game
 gameAPI.post("/new", (req, res) => {
 	var id = uuidv1(); // make a game id
 	games.push(new Game(id)); // make the new game
 	res.status(201).json(id); // return the id
 });
 
+// list available games to join
 gameAPI.get("/listavailablebyid", (req, res) => {
-	var ids = games.filter((x) => x.getPlayers() !== 2).map((x) => x.id);
-	res.json(ids);
+	var ids = games.filter((x) => x.getPlayers() !== 2).map((x) => x.id); // get games with only 1 player and list the game id
+	res.json(ids); // return the game ids as json
 });
 
+// join a game
 gameAPI.put("/:id/join", (req, res) => {
-	var game = getGameById(req.params.id);
-	if (game === null) res.status(404).send("Game not found");
-	else if (game.players === 1) {
-		game.addPlayer();
-		res.send("Player added");
+	var game = getGameById(req.params.id); // find game by id
+	if (game === null) res.status(404).send("Game not found"); // if game doesn't exist, send 404
+	else if (game.players === 1) { // if only one player
+		game.addPlayer(); // add a second player
+		res.send("Player added"); // notify that a second player was added
 	} else {
-		res.status(400).send("game is full");
+		res.status(400).send("game is full"); // notify that game is full if more than 1 player
 	}
 });
 
+// Player 1 move
 gameAPI.put("/:id/player1move", (req, res) => {
 	var game = getGameById(req.params.id); // get the game that is being played
 	if (game === null) res.status(404).send("Game not found");
@@ -40,6 +44,7 @@ gameAPI.put("/:id/player1move", (req, res) => {
 	}
 });
 
+// Player 2 move
 gameAPI.put("/:id/player2move", (req, res) => {
 	var game = getGameById(req.params.id); // get the game that is being played
 	if (game === null) res.status(404).send("Game not found");
@@ -52,20 +57,23 @@ gameAPI.put("/:id/player2move", (req, res) => {
 	}
 });
 
+// Win a Game
 gameAPI.get("/:id/gamewon", (req, res) => {
-	var game = getGameById(req.params.id);
-	if (game === null) res.status(404).send("Game not found");
-	else if (game.checkWin()) res.send("Game Won!");
-	else res.status(204).send();
+	var game = getGameById(req.params.id); // find game by id
+	if (game === null) res.status(404).send("Game not found"); // if game doesn't exist, send 404
+	else if (game.checkWin()) res.send("Game Won!"); // if game exists, check for a win
+	else res.status(204).send(); // if no win, keep playing
 });
 
+// Tie a Game
 gameAPI.get("/:id/gametie", (req, res) => {
-	var game = getGameById(req.params.id);
-	if (game === null) res.status(404).send("Game not found");
-	else if (game.checkTie()) res.send("Tie!");
-	else res.status(204).send();
+	var game = getGameById(req.params.id); // find the game by id
+	if (game === null) res.status(404).send("Game not found"); // if game doesn't exist, send 404
+	else if (game.checkTie()) res.send("Tie!"); // if game exists, check for a tie
+	else res.status(204).send(); // if no tie, keep playing
 });
 
+// open game by id
 gameAPI.get("/:id", (req, res) => {
 	var game = getGameById(req.params.id); // find the game by id
 	// if the game exists, return it
@@ -74,6 +82,7 @@ gameAPI.get("/:id", (req, res) => {
 	else res.status(404).send("Game not found");
 });
 
+// use an id to find the corresponding game
 const getGameById = (id) => {
 	// check all open games
 	for (var game of games) {
@@ -181,10 +190,13 @@ class Game {
 	}
 
 	getPlayers() {
+		// return number of players
 		return this.players;
 	}
 
+	// only run on games with 1 player
 	addPlayer() {
+		// add a second player
 		this.players = 2;
 	}
 

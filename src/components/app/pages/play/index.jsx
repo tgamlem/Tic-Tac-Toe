@@ -60,9 +60,7 @@ const Play = () => {
 
 	return (
 		<Page>
-			<Link to='/home'>Home</Link>
-			<div>Play a Game</div>
-			<div>Game id: {id}</div>
+			<Link to='/home'>Exit Game</Link>
 			{winKind && getGameWonMessage()}
 			<div className={styles.gameboard}>
 				<GameCell
@@ -129,6 +127,7 @@ const Play = () => {
 					isLoading={isLoading}
 				/>
 			</div>
+			<div className={styles.gameInfo}>Game id: {id}</div>
 		</Page>
 	);
 };

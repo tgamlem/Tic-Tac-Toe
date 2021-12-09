@@ -1,0 +1,11 @@
+@use "../../styles/variables" as variables;
+
+.listText {
+	font-family: variables.$default-font;
+	color: rgb(0, 140, 255);
+	padding: 10px;
+}
+
+.button {
+	@include variables.tab;
+}

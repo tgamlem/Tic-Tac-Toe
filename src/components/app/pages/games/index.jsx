@@ -27,12 +27,12 @@ const Games = () => {
 	return (
 		<Page>
 			<Link to='/home'>Home</Link>
-			<div>Show list of games</div>
+			<div>Available Games:</div>
 			{games.map((x) => {
 				return (
 					<div key={x}>
-						<span>{x}</span>
-						<button onClick={() => onClick(x)}>Join</button>
+						<span /**className={styles.listText}*/>{x}</span>
+						<button /**className={styles.button}*/ onClick={() => onClick(x)}>Join</button>
 					</div>
 				);
 			})}

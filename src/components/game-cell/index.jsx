@@ -10,10 +10,11 @@ const GameCell = ({ value, row, pos, onPlayHereClicked, isLoading }) => {
 			{value && <span>{value}</span>}
 			{!value && (
 				<button
+					className={styles.button}
 					onClick={() => onPlayHereClicked(row, pos)}
 					disabled={isLoading}
 				>
-					Play here
+				 
 				</button>
 			)}
 		</div>

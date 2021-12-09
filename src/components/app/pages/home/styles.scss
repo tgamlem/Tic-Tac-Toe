@@ -4,35 +4,43 @@
 .title {
 	color: rgb(0, 140, 255);
 	font-family: variables.$default-font;
-	font-size: xx-large;
+	font-size: 70px;
 	text-align: center;
+	padding: 10px;
+}
+
+.bodyContainer {
+	display: grid;
+	grid-template-columns: repeat(5, 300px);
+	padding-top: 100px;
 }
 
 .bodyText {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	font-family: variables.$default-font;
-	font-size: x-large;
+	font-size: 40px;
 }
 
 .joinText {
-	float: left;
+	grid-column: 2;
+	text-align: center;
+	display: inline-block;
+	margin: 10px;
 	@extend .bodyText;
 }
 
 .createText {
-	float: right;
+	grid-column: 4;
+	text-align: center;
+	display: inline-block;
+	margin: 10px;
 	@extend .bodyText;
 }
 
 .joinButton {
 	padding: 20px, 30px;
 	font-size: larger;
-	float: left;
-	@include variables.tab;
-}
-
-.playButton {
-	padding: 20px, 30px;
-	font-size: larger;
-	float: center;
 	@include variables.tab;
 }

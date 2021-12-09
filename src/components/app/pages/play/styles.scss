@@ -1,6 +1,6 @@
 /** @format */
 
-$default-font: "Gill Sans", "Gill Sans MT", calibri, "Trebuchet MS", sans-serif;
+@use "../../../../styles/variables" as variables;
 
 .gameboard {
 	width: 600px;
@@ -12,4 +12,11 @@ $default-font: "Gill Sans", "Gill Sans MT", calibri, "Trebuchet MS", sans-serif;
 	border-radius: 10px;
 	display: grid;
 	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.gameInfo {
+	font-family: variables.$default-font;
+	color: rgb(0, 140, 255);
+	text-align: center;
+	padding: 10px;
 }

@@ -14,12 +14,18 @@ const Home = () => {
 	return (
 		<Page>
 			<div className={styles.title}>Welcome to 2-Player Tic-Tac-Toe!</div>
-			<Link className={styles.joinButton} to='/games'>
-				Games
-			</Link>
-			<CreateGameButton />
-			<div className={styles.joinText}>Join a Game!</div>
-			<div className={styles.createText}>Create a Game!</div>
+			<div className={styles.bodyContainer}>
+				<div className={styles.joinText}>
+					<p>Join a Game!</p>
+					<Link className={styles.joinButton} to='/games'>
+						Games
+					</Link>
+				</div>
+				<div className={styles.createText}>
+					<p>Create a Game!</p>
+					<CreateGameButton />
+				</div>
+			</div>
 		</Page>
 	);
 };
