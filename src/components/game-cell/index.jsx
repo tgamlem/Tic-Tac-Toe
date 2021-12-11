@@ -13,9 +13,7 @@ const GameCell = ({ value, row, pos, onPlayHereClicked, isLoading }) => {
 					className={styles.button}
 					onClick={() => onPlayHereClicked(row, pos)}
 					disabled={isLoading}
-				>
-				 
-				</button>
+				></button>
 			)}
 		</div>
 	);

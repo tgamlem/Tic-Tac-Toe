@@ -20,7 +20,7 @@ $default-font: "Gill Sans", "Gill Sans MT", calibri, "Trebuchet MS", sans-serif;
 @mixin navButton {
 	@include tab;
 	padding: 3px;
-	border:rgb(118, 118, 118) 2px solid;
+	border: rgb(118, 118, 118) 2px solid;
 	border-style: outset;
 	text-decoration: none;
 	font-size: 20px;
