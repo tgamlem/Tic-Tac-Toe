@@ -20,11 +20,17 @@ import {
 
 const Play = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [game, setGame] = useState({ id: "0", rows: [[], [], []] });
+	const [game, setGame] = useState({ id: "0", rows: [[], [], []], turn: 1 });
 	const [winKind, setWinKind] = useState("");
 	const { id, playerid } = useParams();
-	useEffect(async () => {
-		await updateGame();
+	// when the game changes, call set turn function
+	useEffect(() => setTurn(), [game]);
+	useEffect(() => {
+		// update the game every two seconds
+		const interval = setInterval(async () => await updateGame(), 2000);
+		return () => {
+			clearInterval(interval);
+		};
 	}, []);
 	const onCellClicked = async (row, pos) => {
 		setIsLoading(true);
@@ -45,6 +51,14 @@ const Play = () => {
 		setGame(await fetchGame(id));
 		if ((await win(id)) === 200) setWinKind("win");
 		else if ((await tie(id)) === 200) setWinKind("tie");
+	};
+
+	const setTurn = () => {
+		// if a win or tie, don't allow for more moves
+		if (winKind) setIsLoading(true);
+		// if it isn't this player's turn, don't let them move
+		else if (game.turn.toString() !== playerid) setIsLoading(true);
+		else setIsLoading(false);
 	};
 
 	const getGameWonMessage = () => {

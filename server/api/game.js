@@ -22,8 +22,10 @@ gameAPI.get("/listavailablebyid", (req, res) => {
 // join a game
 gameAPI.put("/:id/join", (req, res) => {
 	var game = getGameById(req.params.id); // find game by id
-	if (game === null) res.status(404).send("Game not found"); // if game doesn't exist, send 404
-	else if (game.players === 1) { // if only one player
+	if (game === null) res.status(404).send("Game not found");
+	// if game doesn't exist, send 404
+	else if (game.players === 1) {
+		// if only one player
 		game.addPlayer(); // add a second player
 		res.send("Player added"); // notify that a second player was added
 	} else {
@@ -35,8 +37,12 @@ gameAPI.put("/:id/join", (req, res) => {
 gameAPI.put("/:id/player1move", (req, res) => {
 	var game = getGameById(req.params.id); // get the game that is being played
 	if (game === null) res.status(404).send("Game not found");
-	else if (game.setValue(req.body.row, req.body.position, "X")) {
+	else if (
+		game.turn === 1 &&
+		game.setValue(req.body.row, req.body.position, "X")
+	) {
 		// if the space is empty, place move and return game
+		game.changeTurn();
 		res.status(200).send(game);
 	} else {
 		// if the space is occupied, return error message
@@ -48,8 +54,12 @@ gameAPI.put("/:id/player1move", (req, res) => {
 gameAPI.put("/:id/player2move", (req, res) => {
 	var game = getGameById(req.params.id); // get the game that is being played
 	if (game === null) res.status(404).send("Game not found");
-	else if (game.setValue(req.body.row, req.body.position, "O")) {
+	else if (
+		game.turn === 2 &&
+		game.setValue(req.body.row, req.body.position, "O")
+	) {
 		// if the space is empty, place move and return game
+		game.changeTurn();
 		res.status(200).send(game);
 	} else {
 		// if the space is occupied, return error message
@@ -60,16 +70,20 @@ gameAPI.put("/:id/player2move", (req, res) => {
 // Win a Game
 gameAPI.get("/:id/gamewon", (req, res) => {
 	var game = getGameById(req.params.id); // find game by id
-	if (game === null) res.status(404).send("Game not found"); // if game doesn't exist, send 404
-	else if (game.checkWin()) res.send("Game Won!"); // if game exists, check for a win
+	if (game === null) res.status(404).send("Game not found");
+	// if game doesn't exist, send 404
+	else if (game.checkWin()) res.send("Game Won!");
+	// if game exists, check for a win
 	else res.status(204).send(); // if no win, keep playing
 });
 
 // Tie a Game
 gameAPI.get("/:id/gametie", (req, res) => {
 	var game = getGameById(req.params.id); // find the game by id
-	if (game === null) res.status(404).send("Game not found"); // if game doesn't exist, send 404
-	else if (game.checkTie()) res.send("Tie!"); // if game exists, check for a tie
+	if (game === null) res.status(404).send("Game not found");
+	// if game doesn't exist, send 404
+	else if (game.checkTie()) res.send("Tie!");
+	// if game exists, check for a tie
 	else res.status(204).send(); // if no tie, keep playing
 });
 
@@ -105,6 +119,7 @@ class Game {
 			["", "", ""],
 		]; // spaces on the game board
 		this.players = 1;
+		this.turn = 1;
 	}
 
 	setValue(row, position, value) {
@@ -198,6 +213,11 @@ class Game {
 	addPlayer() {
 		// add a second player
 		this.players = 2;
+	}
+
+	changeTurn() {
+		if (this.turn === 1) this.turn = 2;
+		else this.turn = 1;
 	}
 
 	arraysMatch(arr1, arr2) {
