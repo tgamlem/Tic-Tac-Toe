@@ -21,11 +21,6 @@ app.get(/.(jpg|png|js|css)$/, (req, res) => {
 	else res.status(404).end();
 });
 
-app.get(/.ico$/, (req, res) => {
-	req.url = "/favicon.ico";
-	sendFile(req, res);
-});
-
 app.get("/", (req, res) => {
 	const INDEX_URL = "/index.html";
 
@@ -38,6 +33,7 @@ app.listen(PORT, () => {
 	console.log(`App listening to ${PORT}...`);
 });
 
+// send compressed data to clients that can support gzip or brotli
 const checkContentEncoding = (req, res) => {
 	if (req.url.match(/.jpg|.png$/)) return;
 	else if (req.acceptsEncodings("br")) {
@@ -49,6 +45,7 @@ const checkContentEncoding = (req, res) => {
 	}
 };
 
+// set content type of response based on the passed in filename
 const getContentType = (fileName) => {
 	if (fileName.match(/.js(.br|.gz)?$/)) return "text/javascript";
 	else if (fileName.match(/.css(.br|.gz)?$/)) return "text/css";
@@ -63,12 +60,14 @@ const getContentType = (fileName) => {
 	}
 };
 
+// only allow requests for files in the DIST_DIR
 const checkIfFileAllowed = (req) => {
 	if (fs.existsSync(DIST_DIR + req.url)) {
 		return true;
 	} else return false;
 };
 
+// send the response
 const sendFile = (req, res) => {
 	res.set("Content-Type", getContentType(req.url));
 	if (!req.url.match(/.html/))
@@ -76,6 +75,7 @@ const sendFile = (req, res) => {
 	res.sendFile(DIST_DIR + req.url);
 };
 
+// trim any extra characters (mostly whitespace) off of url
 const sanitizeUrl = (req) => {
 	req.url = req.url.trim().toString();
 };

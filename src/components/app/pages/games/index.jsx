@@ -10,6 +10,8 @@ import { fetchJSON } from "../../../../helpers/fetch";
 
 import { joinGame } from "../../../../helpers/gameActions";
 
+import styles from "./styles.scss";
+
 const Games = () => {
 	const history = useHistory();
 	const [games, setGames] = useState([]);
@@ -26,16 +28,25 @@ const Games = () => {
 
 	return (
 		<Page>
-			<Link to='/home'>Home</Link>
-			<div>Available Games:</div>
-			{games.map((x) => {
-				return (
-					<div key={x}>
-						<span /**className={styles.listText}*/>{x}</span>
-						<button /**className={styles.button}*/ onClick={() => onClick(x)}>Join</button>
-					</div>
-				);
-			})}
+			<Link className={styles.homeButton} to='/home'>
+				Home
+			</Link>
+			<div className={styles.bodyContainer}>
+				<h1 className={styles.gameText}>Available Games:</h1>
+				{games.map((x) => {
+					return (
+						<div className={styles.listItem} key={x}>
+							<span className={styles.listText}>{x}</span>
+							<button
+								className={styles.button}
+								onClick={() => onClick(x)}
+							>
+								Join
+							</button>
+						</div>
+					);
+				})}
+			</div>
 		</Page>
 	);
 };

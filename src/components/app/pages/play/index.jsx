@@ -64,9 +64,9 @@ const Play = () => {
 	const getGameWonMessage = () => {
 		switch (winKind) {
 			case "tie":
-				return <div>Game Tied!</div>;
+				return <div className={styles.gameText}>Game Tied!</div>;
 			case "win":
-				return <div>Game Won!</div>;
+				return <div className={styles.gameText}>Game Won!</div>;
 			default:
 				return null;
 		}
@@ -74,7 +74,9 @@ const Play = () => {
 
 	return (
 		<Page>
-			<Link to='/home'>Exit Game</Link>
+			<Link className={styles.homeButton} to='/home'>
+				Exit Game
+			</Link>
 			{winKind && getGameWonMessage()}
 			<div className={styles.gameboard}>
 				<GameCell

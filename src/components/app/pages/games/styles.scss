@@ -1,11 +1,31 @@
-@use "../../styles/variables" as variables;
+@use "../../../../styles/variables" as variables;
+
+.gameText {
+	font-family: variables.$default-font;
+}
 
 .listText {
 	font-family: variables.$default-font;
+	font-size: 20px;
 	color: rgb(0, 140, 255);
 	padding: 10px;
 }
 
+.bodyContainer {
+	@include variables.bodyContainer;
+	flex-direction: column;
+	align-items: center;
+}
+
+.listItem {
+	margin: 10px 0;
+}
+
 .button {
 	@include variables.tab;
+	font-size: 20px;
+}
+
+.homeButton {
+	@include variables.navButton;
 }

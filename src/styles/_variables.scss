@@ -7,6 +7,22 @@ $default-font: "Gill Sans", "Gill Sans MT", calibri, "Trebuchet MS", sans-serif;
 	border-radius: 3px;
 	background: rgb(118, 193, 255);
 	font-family: $default-font;
-	font-size: medium;
+	font-size: 30px;
 	color: black;
+}
+
+@mixin bodyContainer {
+	display: flex;
+	justify-content: center;
+	padding-top: 100px;
+}
+
+@mixin navButton {
+	@include tab;
+	padding: 3px;
+	border:rgb(118, 118, 118) 2px solid;
+	border-style: outset;
+	text-decoration: none;
+	font-size: 20px;
+	margin: 10px;
 }

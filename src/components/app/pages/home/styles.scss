@@ -10,9 +10,7 @@
 }
 
 .bodyContainer {
-	display: grid;
-	grid-template-columns: repeat(5, 300px);
-	padding-top: 100px;
+	@include variables.bodyContainer;
 }
 
 .bodyText {
@@ -27,7 +25,7 @@
 	grid-column: 2;
 	text-align: center;
 	display: inline-block;
-	margin: 10px;
+	margin: 60px;
 	@extend .bodyText;
 }
 
@@ -35,12 +33,14 @@
 	grid-column: 4;
 	text-align: center;
 	display: inline-block;
-	margin: 10px;
+	margin: 60px;
 	@extend .bodyText;
 }
 
 .joinButton {
-	padding: 20px, 30px;
-	font-size: larger;
+	padding: 3px;
+	border:rgb(118, 118, 118) 2px solid;
+	border-style: outset;
+	text-decoration: none;
 	@include variables.tab;
 }

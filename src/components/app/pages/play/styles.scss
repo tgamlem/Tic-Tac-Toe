@@ -20,3 +20,14 @@
 	text-align: center;
 	padding: 10px;
 }
+
+.homeButton {
+	@include variables.navButton;
+}
+
+.gameText {
+	font-family: variables.$default-font;
+	font-size: 100px;
+	text-align: center;
+	margin-bottom: 20px;
+}
