@@ -8,11 +8,13 @@ import fs from "fs";
 const PORT = 3000;
 const DIST_DIR = path.join(__dirname);
 
+// create an empty web server
 const app = express();
 
 app.use(express.json());
 app.use("/api", api);
 
+// get files with the allowed extensions
 app.get(/.(jpg|png|js|css)$/, (req, res) => {
 	sanitizeUrl(req);
 
@@ -21,6 +23,7 @@ app.get(/.(jpg|png|js|css)$/, (req, res) => {
 	else res.status(404).end();
 });
 
+// default the client to the home page
 app.get("/", (req, res) => {
 	const INDEX_URL = "/index.html";
 
@@ -29,6 +32,7 @@ app.get("/", (req, res) => {
 	sendFile(req, res);
 });
 
+// listen to the defined port for requests
 app.listen(PORT, () => {
 	console.log(`App listening to ${PORT}...`);
 });

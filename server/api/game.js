@@ -110,6 +110,8 @@ const getGameById = (id) => {
 
 export default gameAPI;
 
+// object to hold game data (id, board spaces, players, and turn) and manage game logic
+// Game object must be created with a game id
 class Game {
 	constructor(id) {
 		this.id = id; // game id
@@ -122,6 +124,7 @@ class Game {
 		this.turn = 1;
 	}
 
+	// return true if value is set
 	setValue(row, position, value) {
 		// don't let someone overwrite a space
 		if (this.checkMove(row, position) === true) {
@@ -132,6 +135,7 @@ class Game {
 		}
 	}
 
+	// return true if space is empty
 	checkMove(row, position) {
 		// check if the desired space is empty
 		if (this.rows[row][position] === "") return true;
@@ -139,7 +143,7 @@ class Game {
 	}
 
 	checkWin() {
-		// row
+		// row - three same values in the same row
 		for (var row of this.rows) {
 			if (
 				this.arraysMatch(row, ["X", "X", "X"]) ||
@@ -148,7 +152,7 @@ class Game {
 				return true;
 			}
 		}
-		// col
+		// col - three same values in the same column
 		for (var i = 0; i < 3; i++) {
 			if (
 				(this.rows[0][i] === "X" &&
@@ -161,7 +165,7 @@ class Game {
 				return true;
 			}
 		}
-		// left to right diagonal
+		// left to right diagonal - three same values in the diagonal
 		if (
 			(this.rows[0][0] === "X" &&
 				this.rows[1][1] === "X" &&
@@ -172,7 +176,7 @@ class Game {
 		) {
 			return true;
 		}
-		// right to left diagonal
+		// right to left diagonal - three same values in the diagonal
 		if (
 			(this.rows[0][2] === "X" &&
 				this.rows[1][1] === "X" &&
@@ -195,9 +199,7 @@ class Game {
 		for (var i = 0; i < 3; i++) {
 			for (var j = 0; j < 3; j++) {
 				// if any space is empty
-				if (this.rows[i][j] === "") {
-					return false;
-				}
+				if (this.rows[i][j] === "") return false;
 			}
 		}
 		// otherwise, nobody won and no empty spaces, so a tie
@@ -209,12 +211,13 @@ class Game {
 		return this.players;
 	}
 
-	// only run on games with 1 player
+	// NOTE: only run on games with 1 player
 	addPlayer() {
 		// add a second player
 		this.players = 2;
 	}
 
+	// toggle between player 1 and player 2 turns
 	changeTurn() {
 		if (this.turn === 1) this.turn = 2;
 		else this.turn = 1;
