@@ -12,7 +12,7 @@ All of these packages were downloaded from the public npm registry located at [n
 
 ## Import statements
 
-It is industry standard to use import statements to import npm dependencies into projects like this one. Import statements are typically not marked with comments about where the imported code came from, so I have followed that pattern and not included references to specific dependency source code or websites in this project's source code. Import statements are also used to import code written by me into other files within this project. A general rule of thumb is if the import statement references a dependency located in the package.json](https://github.com/tgamlem/Tic-Tac-Toe/blob/main/package.json) file, it is written by someone else and used with permission. If it is not mentioned there, it is likely written by me.
+It is industry standard to use import statements to import npm dependencies into projects like this one. Import statements are typically not marked with comments about where the imported code came from, so I have followed that pattern and not included references to specific dependency source code or websites in this project's source code. Import statements are also used to import code written by me into other files within this project. A general rule of thumb is if the import statement references a dependency located in the [package.json](https://github.com/tgamlem/Tic-Tac-Toe/blob/main/package.json) file, it is written by someone else and used with permission. If it is not mentioned there, it is likely written by me.
 
 ## Some Major Components Used
 
@@ -47,3 +47,17 @@ It is industry standard to use import statements to import npm dependencies into
 ### React Router
 
 [ReactRouter](https://reactrouter.com) is a client-side routing package that is used by many large companies. It allows different “routes” to be “hosted” inside the client application instead of having many different HTML files on a web server. This has many advantages. Some are, it reduces the number of requests to the server because all the “routes” are managed in JavaScript by the client, and “page loads” or “requests” to other routes are able to be completed nearly instantly without actually requesting any more information from the server (with the exception of images, external links, and any stylesheets or JavaScript modules that may not have been downloaded yet).
+
+## Styling Tools
+
+### Prettier
+
+[Prettier](https://prettier.io) is an opinionated code formatter that works with JavaScript, JSX, JSON, YAML, Markdown, and many other languages. Prettier helps developers write readable code by automatically formatting things onto multiple lines, adding whitespace, and fixing indentation. It is automatically run when you save a document. Prettier is used by many large companies in the industry.
+
+### ESLint
+
+[ESLint](https://eslint.org) checks for best practices and common errors within JavaScript files to help developers avoid these mistakes. Most of the problems that ESLint finds in the code are able to be automatically fixed. These fixes are also syntax-aware.
+
+### Stylelint
+
+[Stylelint](https://stylelint.io) formats SCSS according to rules made for CSS. It automatically fixes style problems and is unopinionated so that developers can still customize to their exact needs.
