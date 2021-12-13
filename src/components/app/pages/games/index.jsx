@@ -16,12 +16,16 @@ const Games = () => {
 	const history = useHistory();
 	const [games, setGames] = useState([]);
 	useEffect(async () => {
+		// fetch the available games
 		const res = await fetchJSON("/api/game/listavailablebyid");
 		setGames(res);
 	}, []);
 
+	// for when the user presses join
 	const onClick = async (id) => {
+		// send join request to server and await response
 		const join = await joinGame(id);
+		// if we successfully join, navigate to the game
 		if (join) history.push(`${id}/2/play`);
 		else alert("unable to join game");
 	};

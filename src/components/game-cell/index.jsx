@@ -4,6 +4,7 @@ import React from "react";
 
 import styles from "./styles.scss";
 
+// create a custom game cell that holds a value or displays a button to play the space
 const GameCell = ({ value, row, pos, onPlayHereClicked, isLoading }) => {
 	return (
 		<div className={styles.box}>

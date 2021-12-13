@@ -32,23 +32,33 @@ const Play = () => {
 			clearInterval(interval);
 		};
 	}, []);
+
+	// call this when a user clicks a box on the gameboard
 	const onCellClicked = async (row, pos) => {
+		// disable the other buttons
 		setIsLoading(true);
 		let res;
 		if (playerid === "1") {
+			// request a player 1 move in the correct box
 			res = await player1Move(id, row, pos);
 		} else {
+			// request a player 2 move in the correct box
 			res = await player2Move(id, row, pos);
 		}
+		// return an error if the request failed
 		if (!res) alert("Error occurred while moving");
 
+		// pull updates from the server
 		updateGame();
 
+		// enable other buttons
 		setIsLoading(false);
 	};
 
 	const updateGame = async () => {
+		// fetch the game from the server to pull updates
 		setGame(await fetchGame(id));
+		// set the status message if the game has ended
 		if ((await win(id)) === 200) setWinKind("win");
 		else if ((await tie(id)) === 200) setWinKind("tie");
 	};
@@ -61,6 +71,7 @@ const Play = () => {
 		else setIsLoading(false);
 	};
 
+	// Put a status message on the screen at the end of the game
 	const getGameWonMessage = () => {
 		switch (winKind) {
 			case "tie":
